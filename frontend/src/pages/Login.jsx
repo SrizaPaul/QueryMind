@@ -52,7 +52,8 @@ function Login() {
       const response =
         await axios.post(
 
-          'http://localhost:3000/api/auth/login',
+          // 'http://localhost:3000/api/auth/login',
+          'https://querymind-backend-i5jp.onrender.com/api/auth/login',
 
           formData
 

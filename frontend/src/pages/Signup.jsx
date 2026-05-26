@@ -52,7 +52,8 @@ function Signup() {
 
       await axios.post(
 
-        'http://localhost:3000/api/auth/register',
+        // 'http://localhost:3000/api/auth/register',
+        'https://querymind-backend-i5jp.onrender.com/api/auth/register',
 
         formData
 

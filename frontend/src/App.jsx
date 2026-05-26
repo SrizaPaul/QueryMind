@@ -107,7 +107,8 @@ function App() {
       const response =
         await axios.post(
 
-          'http://localhost:3000/api/query',
+          // 'http://localhost:3000/api/query',
+          'https://querymind-backend-i5jp.onrender.com/api/query',
 
           { query },
 
