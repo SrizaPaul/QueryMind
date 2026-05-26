@@ -6,11 +6,8 @@ const uploadRoutes = require('./routes/upload.routes');
 const app = express();
 
 // Middlewares
+app.use(cors());
 
-app.use(cors({
-  origin: 'query-mind-8y85gqm22-srizapaul.vercel.app',
-  credentials: true
-}));
 app.use(express.json());
 
 // Import Routes
