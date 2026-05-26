@@ -65,7 +65,7 @@ function App() {
       const response =
         await axios.get(
 
-          'http://localhost:3000/api/history',
+          'http://querymind-backend-i5jp.onrender.com/api/history',
 
           {
             headers: {
@@ -176,7 +176,7 @@ function App() {
       const response =
         await axios.post(
 
-          'http://localhost:3000/api/upload',
+          'http://querymind-backend-i5jp.onrender.com/api/upload',
 
           formData,
 
