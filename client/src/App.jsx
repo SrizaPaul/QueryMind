@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { getHealth } from "./services/healthService";
 
 function App() {
   const [message, setMessage] = useState("Loading...");
@@ -7,11 +7,9 @@ function App() {
   useEffect(() => {
     const fetchHealth = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/health"
-        );
+        const data = await getHealth();
 
-        setMessage(response.data.message);
+        setMessage(data.message);
       } catch (error) {
         console.error(error);
         setMessage("Failed to connect to backend");
