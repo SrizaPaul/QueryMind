@@ -1,35 +1,40 @@
 import { useEffect, useState } from "react";
-import { getHealth } from "./services/healthService";
+import { getEmployees } from "./services/employeeService";
 
 function App() {
-  const [message, setMessage] = useState("Loading...");
+  const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
-    const fetchHealth = async () => {
+    const fetchEmployees = async () => {
       try {
-        const data = await getHealth();
-
-        setMessage(data.message);
+        const data = await getEmployees();
+        setEmployees(data);
       } catch (error) {
-        console.error(error);
-        setMessage("Failed to connect to backend");
+        console.error("Failed to fetch employees:", error);
       }
     };
 
-    fetchHealth();
+    fetchEmployees();
   }, []);
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        fontSize: "2rem",
-      }}
-    >
-      {message}
+    <div style={{ padding: "2rem" }}>
+      <h1>QueryMind</h1>
+
+      <h2>Employees</h2>
+
+      {employees.length === 0 ? (
+        <p>No employees found.</p>
+      ) : (
+        <ul>
+          {employees.map((employee) => (
+            <li key={employee._id}>
+              <strong>{employee.name}</strong> - {employee.department} - ₹
+              {employee.salary}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
