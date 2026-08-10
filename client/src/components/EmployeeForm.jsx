@@ -38,6 +38,14 @@ function EmployeeForm({
 
 const handleSubmit = async (event) => {
   event.preventDefault();
+  if (
+  !formData.name.trim() ||
+  !formData.email.trim() ||
+  !formData.department.trim()
+) {
+  alert("Please fill in all fields.");
+  return;
+}
 
   try {
 
@@ -73,21 +81,22 @@ const handleSubmit = async (event) => {
 };
 
   return (
-    <div>
-      <h2>
+    <div className="bg-white rounded-xl shadow-lg p-6">
+      <h2 className="text-2xl font-bold text-slate-800 mb-6">
   {selectedEmployee ? "Update Employee" : "Add Employee"}
 </h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-        />
+  type="text"
+  name="name"
+  placeholder="Name"
+  value={formData.name}
+  onChange={handleChange}
+  required
+  className="w-full rounded-lg border border-slate-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+/>
 
-        <br />
-        <br />
+        
 
         <input
           type="email"
@@ -95,10 +104,10 @@ const handleSubmit = async (event) => {
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
+          required
         />
 
-        <br />
-        <br />
+       
 
         <input
           type="text"
@@ -106,43 +115,48 @@ const handleSubmit = async (event) => {
           placeholder="Department"
           value={formData.department}
           onChange={handleChange}
+          required
         />
 
-        <br />
-        <br />
+       
 
         <input
-          type="number"
-          name="salary"
-          placeholder="Salary"
-          value={formData.salary}
-          onChange={handleChange}
-        />
+  type="number"
+  name="salary"
+  placeholder="Salary (₹)"
+  value={formData.salary}
+  onChange={handleChange}
+  min="1"
+  required
+  className="w-full rounded-lg border border-slate-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+/>
 
-        <br />
-        <br />
+        
 
-        <button type="submit">
+        <button
+  type="submit"
+  className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg transition"
+>
   {selectedEmployee ? "Update Employee" : "Add Employee"}
 </button>
 
 {selectedEmployee && (
   <button
-    type="button"
-    onClick={() => {
-      setSelectedEmployee(null);
+  type="button"
+  onClick={() => {
+    setSelectedEmployee(null);
 
-      setFormData({
-        name: "",
-        email: "",
-        department: "",
-        salary: "",
-      });
-    }}
-    style={{ marginLeft: "10px" }}
-  >
-    Cancel
-  </button>
+    setFormData({
+      name: "",
+      email: "",
+      department: "",
+      salary: "",
+    });
+  }}
+  className="ml-3 bg-gray-300 hover:bg-gray-400 text-slate-800 px-5 py-2 rounded-lg transition"
+>
+  Cancel
+</button>
 )}
 
       </form>

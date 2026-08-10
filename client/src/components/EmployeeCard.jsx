@@ -1,35 +1,39 @@
 function EmployeeCard({ employee, onDelete, onEdit }) {
   return (
-    <div
-      style={{
-        border: "1px solid #ccc",
-        padding: "10px",
-        marginBottom: "10px",
-        borderRadius: "8px",
-      }}
-    >
-      <h3>{employee.name}</h3>
+  <div className="bg-white rounded-xl shadow-md p-5 mb-4 hover:shadow-xl transition">
+    <h3 className="text-xl font-semibold text-slate-800">
+      {employee.name}
+    </h3>
 
-      <p>Email: {employee.email}</p>
+    <p className="text-slate-600 mt-2">
+      📧 {employee.email}
+    </p>
 
-      <p>Department: {employee.department}</p>
+    <p className="text-slate-600">
+      🏢 {employee.department}
+    </p>
 
-      <p>Salary: ₹{employee.salary}</p>
+    <p className="text-slate-800 font-medium mt-2">
+      💰 ₹{employee.salary}
+    </p>
 
-      <div style={{ marginTop: "10px" }}>
-  <button
-    onClick={() => onEdit(employee)}
-    style={{ marginRight: "10px" }}
-  >
-    Edit
-  </button>
+    <div className="flex gap-3 mt-5">
+      <button
+        onClick={() => onEdit(employee)}
+        className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg transition"
+      >
+        Edit
+      </button>
 
-  <button onClick={() => onDelete(employee._id)}>
-    Delete
-  </button>
-</div>
+      <button
+        onClick={() => onDelete(employee._id)}
+        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition"
+      >
+        Delete
+      </button>
     </div>
-  );
+  </div>
+);
 }
 
 export default EmployeeCard;
