@@ -8,6 +8,7 @@ import {
   deleteEmployee,
   updateEmployee,
 } from "./services/employeeService";
+import NaturalLanguageQuery from "./components/NaturalLanguageQuery";
 
 function App() {
   const [employees, setEmployees] = useState([]);
@@ -84,6 +85,8 @@ return (
         <h1 className="text-4xl font-bold text-slate-800">
           QueryMind
         </h1>
+
+        <NaturalLanguageQuery />
 
         <p className="text-slate-500 mt-2">
           Employee Management Dashboard

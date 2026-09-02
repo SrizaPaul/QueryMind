@@ -6,6 +6,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mysqlPool from "./config/mysql.js";
 import mysqlEmployeeRoutes from "./routes/mysqlEmployee.routes.js";
+import queryRoutes from "./routes/query.routes.js";
+import aiQueryRoutes from "./routes/aiQuery.routes.js";
 
 dotenv.config();
 connectDB();
@@ -20,6 +22,8 @@ app.use(express.json());
 app.use("/api/health", healthRoutes);
 app.use("/api/employees", employeeRoutes);
 app.use("/api/mysql-employees", mysqlEmployeeRoutes);
+app.use("/api/query", queryRoutes);
+app.use("/api/ai-query", aiQueryRoutes);
 
 // app.get("/", (req, res) => {
 //   res.json({
