@@ -37,7 +37,7 @@ function EmployeeList({
       ) : (
         employees.map((employee) => (
           <EmployeeCard
-  key={employee._id}
+  key={employee.id}
   employee={employee}
   onDelete={onDelete}
   onEdit={onEdit}

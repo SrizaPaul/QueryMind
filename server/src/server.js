@@ -4,6 +4,8 @@ import healthRoutes from "./routes/health.routes.js";
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import mysqlPool from "./config/mysql.js";
+import mysqlEmployeeRoutes from "./routes/mysqlEmployee.routes.js";
 
 dotenv.config();
 connectDB();
@@ -17,6 +19,7 @@ app.use(express.json());
 
 app.use("/api/health", healthRoutes);
 app.use("/api/employees", employeeRoutes);
+app.use("/api/mysql-employees", mysqlEmployeeRoutes);
 
 // app.get("/", (req, res) => {
 //   res.json({

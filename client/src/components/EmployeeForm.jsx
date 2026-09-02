@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import {
   createEmployee,
   updateEmployee,
@@ -26,124 +27,54 @@ function EmployeeForm({
   };
 
   useEffect(() => {
-  if (selectedEmployee) {
-    setFormData({
-      name: selectedEmployee.name,
-      email: selectedEmployee.email,
-      department: selectedEmployee.department,
-      salary: selectedEmployee.salary,
-    });
-  }
-}, [selectedEmployee]);
-
-const handleSubmit = async (event) => {
-  event.preventDefault();
-  if (
-  !formData.name.trim() ||
-  !formData.email.trim() ||
-  !formData.department.trim()
-) {
-  alert("Please fill in all fields.");
-  return;
-}
-
-  try {
-
     if (selectedEmployee) {
-
-      await updateEmployee(selectedEmployee._id, formData);
-
-      alert("Employee updated successfully!");
-
-      setSelectedEmployee(null);
-
-    } else {
-
-      await createEmployee(formData);
-
-      alert("Employee added successfully!");
-
+      setFormData({
+        name: selectedEmployee.name,
+        email: selectedEmployee.email,
+        department: selectedEmployee.department,
+        salary: selectedEmployee.salary,
+      });
     }
+  }, [selectedEmployee]);
 
-    onEmployeeAdded();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    setFormData({
-      name: "",
-      email: "",
-      department: "",
-      salary: "",
-    });
+    try {
+      if (selectedEmployee) {
+        // Update existing employee
+        await updateEmployee(selectedEmployee.id, formData);
 
-  } catch (error) {
-    console.error(error);
-    alert("Operation failed.");
-  }
-};
+        alert("Employee updated successfully!");
 
-  return (
-    <div className="bg-white rounded-xl shadow-lg p-6">
-      <h2 className="text-2xl font-bold text-slate-800 mb-6">
-  {selectedEmployee ? "Update Employee" : "Add Employee"}
-</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-  type="text"
-  name="name"
-  placeholder="Name"
-  value={formData.name}
-  onChange={handleChange}
-  required
-  className="w-full rounded-lg border border-slate-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-/>
+        setSelectedEmployee(null);
+      } else {
+        // Create new employee
+        await createEmployee(formData);
 
-        
+        alert("Employee added successfully!");
+      }
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+      await onEmployeeAdded();
 
-       
+      setFormData({
+        name: "",
+        email: "",
+        department: "",
+        salary: "",
+      });
+    } catch (error) {
+      console.error(error);
 
-        <input
-          type="text"
-          name="department"
-          placeholder="Department"
-          value={formData.department}
-          onChange={handleChange}
-          required
-        />
+      alert(
+        selectedEmployee
+          ? "Failed to update employee."
+          : "Failed to create employee."
+      );
+    }
+  };
 
-       
-
-        <input
-  type="number"
-  name="salary"
-  placeholder="Salary (₹)"
-  value={formData.salary}
-  onChange={handleChange}
-  min="1"
-  required
-  className="w-full rounded-lg border border-slate-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-/>
-
-        
-
-        <button
-  type="submit"
-  className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg transition"
->
-  {selectedEmployee ? "Update Employee" : "Add Employee"}
-</button>
-
-{selectedEmployee && (
-  <button
-  type="button"
-  onClick={() => {
+  const handleCancel = () => {
     setSelectedEmployee(null);
 
     setFormData({
@@ -152,13 +83,74 @@ const handleSubmit = async (event) => {
       department: "",
       salary: "",
     });
-  }}
-  className="ml-3 bg-gray-300 hover:bg-gray-400 text-slate-800 px-5 py-2 rounded-lg transition"
->
-  Cancel
-</button>
-)}
+  };
 
+  return (
+    <div className="bg-white rounded-xl shadow-lg p-6">
+      <h2 className="text-2xl font-bold text-slate-800 mb-6">
+        {selectedEmployee ? "Update Employee" : "Add Employee"}
+      </h2>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+          className="w-full rounded-lg border border-slate-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          className="w-full rounded-lg border border-slate-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        <input
+          type="text"
+          name="department"
+          placeholder="Department"
+          value={formData.department}
+          onChange={handleChange}
+          required
+          className="w-full rounded-lg border border-slate-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        <input
+          type="number"
+          name="salary"
+          placeholder="Salary (₹)"
+          value={formData.salary}
+          onChange={handleChange}
+          min="1"
+          required
+          className="w-full rounded-lg border border-slate-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        <div className="flex gap-3">
+          <button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg transition"
+          >
+            {selectedEmployee ? "Update Employee" : "Add Employee"}
+          </button>
+
+          {selectedEmployee && (
+            <button
+              type="button"
+              onClick={handleCancel}
+              className="bg-gray-300 hover:bg-gray-400 text-slate-800 px-5 py-2 rounded-lg transition"
+            >
+              Cancel
+            </button>
+          )}
+        </div>
       </form>
     </div>
   );

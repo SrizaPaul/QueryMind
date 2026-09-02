@@ -26,7 +26,7 @@ function EmployeeCard({ employee, onDelete, onEdit }) {
       </button>
 
       <button
-        onClick={() => onDelete(employee._id)}
+        onClick={() => onDelete(employee.id)}
         className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition"
       >
         Delete
